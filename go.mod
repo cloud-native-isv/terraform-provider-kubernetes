@@ -22,6 +22,7 @@ require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
 	github.com/hashicorp/terraform-plugin-testing v1.7.0
 	github.com/jinzhu/copier v0.3.5
+	github.com/lmittmann/tint v1.0.3
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/hashstructure v1.1.0
 	github.com/robfig/cron v1.2.0
