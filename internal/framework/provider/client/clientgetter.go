@@ -9,4 +9,8 @@ import (
 type KubernetesClientGetter interface {
 	DynamicClient() (dynamic.Interface, error)
 	DiscoveryClient() (discovery.DiscoveryInterface, error)
+
+	// TODO rename this interface to something more general like ProviderConfig
+	IgnoreLabels() []string
+	IgnoreAnnotations() []string
 }

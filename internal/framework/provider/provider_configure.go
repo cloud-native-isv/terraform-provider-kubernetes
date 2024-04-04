@@ -39,7 +39,17 @@ func (p *KubernetesProvider) Configure(ctx context.Context, req provider.Configu
 		resp.Diagnostics.Append(diag.NewErrorDiagnostic("failed to initilize Kubernetes client configuration", err.Error()))
 	}
 
-	resp.ResourceData = client.NewKubernetesClientGetter(cfg)
+	// FIXME make a helper function for this
+	ignoreLabels := make([]string, len(data.IgnoreLabels))
+	for i, s := range data.IgnoreLabels {
+		ignoreLabels[i] = s.ValueString()
+	}
+	ignoreAnnotations := make([]string, len(data.IgnoreAnnotations))
+	for i, s := range data.IgnoreAnnotations {
+		ignoreAnnotations[i] = s.ValueString()
+	}
+
+	resp.ResourceData = client.NewKubernetesClientGetter(cfg, ignoreLabels, ignoreAnnotations)
 }
 
 func newKubernetesClientConfig(ctx context.Context, data KubernetesProviderModel) (*restclient.Config, error) {

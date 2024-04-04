@@ -52,8 +52,8 @@ type KubernetesProviderModel struct {
 
 	ProxyURL types.String `tfsdk:"proxy_url"`
 
-	IgnoreAnnotations types.List `tfsdk:"ignore_annotations"`
-	IgnoreLabels      types.List `tfsdk:"ignore_labels"`
+	IgnoreAnnotations []types.String `tfsdk:"ignore_annotations"`
+	IgnoreLabels      []types.String `tfsdk:"ignore_labels"`
 
 	Exec []struct {
 		APIVersion types.String            `tfsdk:"api_version"`
