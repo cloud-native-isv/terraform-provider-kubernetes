@@ -11,14 +11,18 @@ import (
 )
 
 type kubernetesClientGetter struct {
-	config          *rest.Config
-	dynamicClient   dynamic.Interface
-	discoveryClient discovery.DiscoveryInterface
+	config            *rest.Config
+	dynamicClient     dynamic.Interface
+	discoveryClient   discovery.DiscoveryInterface
+	ignoreLabels      []string
+	ignoreAnnotations []string
 }
 
-func NewKubernetesClientGetter(config *rest.Config) KubernetesClientGetter {
+func NewKubernetesClientGetter(config *rest.Config, ignoreLabels, ignoreAnnotations []string) KubernetesClientGetter {
 	return &kubernetesClientGetter{
-		config: config,
+		config:            config,
+		ignoreLabels:      ignoreLabels,
+		ignoreAnnotations: ignoreAnnotations,
 	}
 }
 
@@ -50,4 +54,12 @@ func (k kubernetesClientGetter) DiscoveryClient() (discovery.DiscoveryInterface,
 		k.discoveryClient = kc
 	}
 	return k.discoveryClient, nil
+}
+
+func (k kubernetesClientGetter) IgnoreLabels() []string {
+	return k.ignoreLabels
+}
+
+func (k kubernetesClientGetter) IgnoreAnnotations() []string {
+	return k.ignoreAnnotations
 }
